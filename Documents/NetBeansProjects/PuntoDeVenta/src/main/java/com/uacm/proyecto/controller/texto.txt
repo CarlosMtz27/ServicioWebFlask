@@ -1,0 +1,4 @@
+Proyecto de construccion y evolucion de software.
+Punto de venta de una tienda de abarrotes.
+
+Creado por: Carlos Martínez Hernández.

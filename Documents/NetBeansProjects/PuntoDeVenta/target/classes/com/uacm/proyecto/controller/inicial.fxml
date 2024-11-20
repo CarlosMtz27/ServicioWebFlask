@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.ImageInput?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="490.0" style="-fx-background-color: #3498DB; -fx-border-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uacm.proyecto.controller.InicialController">
+   <children>
+      <ImageView fitHeight="448.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../img/tiendaInicial.png" />
+         </image>
+         <effect>
+            <Glow level="0.42" />
+         </effect>
+      </ImageView>
+      <Label layoutX="62.0" layoutY="37.0" prefHeight="43.0" prefWidth="368.0" text="Abarrotes &quot;Chanchito feliz&quot; " textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font size="29.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="SE_RESIZE" />
+         </cursor>
+         <effect>
+            <Blend>
+               <topInput>
+                  <ImageInput />
+               </topInput>
+            </Blend>
+         </effect>
+      </Label>
+      <Button fx:id="botonSoyVendedor" layoutX="185.0" layoutY="145.0" mnemonicParsing="false" onAction="#btnSoyVendedor" style="-fx-background-color: #E74C3C;" text="Soy un vendedor" textFill="#0d0c0c">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <Blend />
+         </effect>
+      </Button>
+      <Button fx:id="botonSoyGerente" layoutX="185.0" layoutY="219.0" mnemonicParsing="false" onAction="#btnSoyGerente" prefHeight="30.0" prefWidth="123.0" style="-fx-background-color: #E74C3C;" text="Soy el dueño">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <MenuBar prefHeight="25.0" prefWidth="490.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Archivo">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#Cerrar" text="Cerrar" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Ayuda">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#AcercaDe" text="AcercaDe" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uacm.proyecto.controller.VistaGerenteController">
+   <children>
+      <AnchorPane layoutX="14.0" layoutY="7.0" prefHeight="138.0" prefWidth="135.0" style="-fx-border-color: gray;">
+         <children>
+            <ImageView fitHeight="95.0" fitWidth="95.0" layoutX="21.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/GerenteImg.png" />
+               </image></ImageView>
+            <Label layoutX="47.0" layoutY="6.0" text="Gerente" />
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tablaProductos" layoutX="14.0" layoutY="163.0" prefHeight="303.0" prefWidth="724.0">
+        <columns>
+          <TableColumn fx:id="columnaNombreProducto" prefWidth="216.0" text="Nombre" />
+          <TableColumn fx:id="columnaDescripcionProducto" prefWidth="285.0" text="Descripcion" />
+            <TableColumn fx:id="columnaPrecioProducto" minWidth="0.0" prefWidth="73.0" text="Precio" />
+            <TableColumn fx:id="columnaCodigoProducto" minWidth="0.0" prefWidth="90.0" text="Codigo" />
+            <TableColumn fx:id="columnaCantidadProducto" minWidth="0.0" prefWidth="59.0" text="Cantidad" />
+            <TableColumn fx:id="columnaIdProducto" minWidth="0.0" prefWidth="0.0" text="ID" />
+        </columns>
+      </TableView>
+      <AnchorPane layoutX="747.0" layoutY="16.0" prefHeight="450.0" prefWidth="285.0" style="-fx-border-color: gray;">
+         <children>
+            <Label layoutX="25.0" layoutY="99.0" text="Cantidad: " />
+            <TextField fx:id="txtNombreProducto" layoutX="78.0" layoutY="52.0" />
+            <Label layoutX="33.0" layoutY="196.0" text="Precio: " />
+            <Label layoutX="14.0" layoutY="243.0" text="Descripcion: " />
+            <Label layoutX="26.0" layoutY="56.0" text="Nombre: " />
+            <Label layoutX="29.0" layoutY="145.0" text="Codigo: " />
+            <TextField fx:id="txtCodigoProducto" layoutX="78.0" layoutY="141.0" />
+            <TextField fx:id="txtCantidadProducto" layoutX="78.0" layoutY="95.0" />
+            <TextField fx:id="txtPrecioProducto" layoutX="78.0" layoutY="192.0" />
+            <TextArea fx:id="txtDescripcionProducto" layoutX="82.0" layoutY="252.0" prefHeight="95.0" prefWidth="178.0" />
+            <Text layoutX="117.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Producto." />
+            <Button fx:id="btnAgregar" layoutX="123.0" layoutY="382.0" mnemonicParsing="false" onAction="#agregarProducto" style="-fx-background-color: #2E86C1;" text="Agregar" textFill="WHITE" />
+            <Button fx:id="btnEliminar" layoutX="198.0" layoutY="382.0" mnemonicParsing="false" onAction="#eliminarProducto" style="-fx-background-color: #E74C3C;" text="Eliminar" />
+            <Button fx:id="btnEditar" layoutX="59.0" layoutY="382.0" mnemonicParsing="false" onAction="#editarProducto" style="-fx-background-color: #F4D03F;" text="Editar" />
+            <TextField fx:id="txtId" layoutX="207.0" layoutY="10.0" prefHeight="25.0" prefWidth="54.0" visible="false" />
+            <Button fx:id="btnNuevo" layoutX="122.0" layoutY="382.0" mnemonicParsing="false" onAction="#Nuevo" prefHeight="25.0" prefWidth="59.0" style="-fx-background-color: #2ECC71;" text="Nuevo" />
+         </children>
+      </AnchorPane>
+      <TextField fx:id="txtbusquedaCodigo" layoutX="180.0" layoutY="89.0" promptText="Ingrese nombre o codigo" />
+      <Label layoutX="202.0" layoutY="68.0" prefHeight="17.0" prefWidth="106.0" text="Buscar producto" />
+      <Button layoutX="376.0" layoutY="89.0" mnemonicParsing="false" onAction="#mostrarVentas" style="-fx-background-color: #808B96;" text="Mostrar ventas" textFill="WHITE" />
+      <Button layoutX="520.0" layoutY="89.0" mnemonicParsing="false" onAction="#cerrarSesion" style="-fx-background-color: #BB8FCE;" text="Cerrar sesion." textFill="WHITE" />
+      <Button fx:id="btnEliminarCuenta" layoutX="841.0" layoutY="469.0" mnemonicParsing="false" onAction="#EliminarCuenta" style="-fx-background-color: #E74C3C;" text="Eliminar cuenta" textFill="WHITE" />
+      <Label fx:id="labelNombre" layoutX="448.0" layoutY="12.0" prefHeight="28.0" prefWidth="203.0" text="Label">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="399.0" layoutY="12.0" text="Hola: ">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="363.0" layoutY="130.0" prefHeight="30.0" prefWidth="98.0" text="Productos">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

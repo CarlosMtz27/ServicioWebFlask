@@ -1,0 +1,6 @@
+com.uacm.proyecto.controller
+com.uacm.proyecto.controller.alertas
+com.uacm.proyecto.controller.MisExcepciones
+com.uacm.proyecto.dao
+com.uacm.proyecto.dao.mysql
+com.uacm.proyecto.modelo
