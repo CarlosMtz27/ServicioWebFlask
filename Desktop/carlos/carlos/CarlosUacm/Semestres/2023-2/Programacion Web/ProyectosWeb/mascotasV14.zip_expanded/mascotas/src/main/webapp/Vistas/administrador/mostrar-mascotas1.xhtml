@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title>Mostrar Mascotas</title>
+	<link rel="stylesheet" href="css/login.css" />
+
+</h:head>
+<h:body>
+	<nav>
+		<div class="card">
+			<h:form>
+				<p:growl id="messages" />
+				<p:menubar>
+					<p:submenu label="#{controladorLogin.usuario.nombre}"
+						icon="pi pi-fw pi-user">
+						<p:menuitem value="Cerrar sesion" icon="pi pi-fw pi-power-off"
+							action="#{controladorLogin.logout}" />
+						<p:menuitem value="Inicioxd" icon="pi pi-home"
+							action="#{administradorControlador1.homeAdmin}" />
+					</p:submenu>
+
+					<p:submenu label="Solicitudes" icon="pi pi-book">
+						<p:menuitem value="Recibidas" icon="pi pi-send"
+							action="#{administradorControlador1.verSolicitudes}" />
+					</p:submenu>
+
+					<p:submenu label="Acerca de" icon="pi pi-info">
+						<p:menuitem action="nosotros.xhtml" value="Nostros"
+							icon="pi pi-users
+"></p:menuitem>
+					</p:submenu>
+
+					<p:divider layout="vertical" />
+
+					<f:facet name="options">
+						<div class="ui-input-icon-left mr-2">
+							<i class="pi pi-fw pi-search" />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('dtProducts').filter()" placeholder="Buscar" />
+						</div>
+						<p:commandButton value="Cerrar sesion" icon="pi pi-fw pi-sign-out"
+							styleClass="ui-button-info" action="#{controladorLogin.logout}" />
+					</f:facet>
+				</p:menubar>
+			</h:form>
+		</div>
+	</nav>
+	<div class="card crud-demo">
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" />
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:commandButton value="Agregar" icon="pi pi-plus"
+						actionListener="#{administradorControlador1.openNew}"
+						update=":dialogs:manage-product-content"
+						oncomplete="PF('manageProductDialog').show()"
+						styleClass="ui-button-success" style="margin-right: .5rem">
+						<p:resetInput target=":dialogs:manage-product-content" />
+					</p:commandButton>
+					<p:commandButton id="delete-products-button"
+						value="#{administradorControlador1.deleteButtonMessage}"
+						icon="pi pi-trash"
+						actionListener="#{administradorControlador1.deleteSelectedProducts}"
+						styleClass="ui-button-danger"
+						disabled="#{!administradorControlador1.hasSelectedProducts()}"
+						update="@this">
+						<p:confirm header="Confirmation"
+							message="Quieres eliminar estas mascotas?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="dt-products" widgetVar="dtProducts" var="mascota"
+				value="#{administradorControlador1.mascotas}" reflow="true"
+				styleClass="products-table"
+				selection="#{administradorControlador1.selectedMascotas}"
+				rowKey="#{mascota.idMascota}" paginator="true" rows="10"
+				rowSelectMode="add" paginatorPosition="bottom">
+				<f:facet name="header">
+					<div class="products-table-header">
+						<span style="font-weight: bold">Mascotas</span> <span
+							class="filter-container ui-input-icon-left"> <i
+							class="pi pi-search"></i> <p:inputText id="globalFilter"
+								onkeyup="PF('dtProducts').filter()" placeholder="Buscar" />
+						</span>
+					</div>
+				</f:facet>
+				<p:ajax event="rowSelect" update=":form:delete-products-button" />
+				<p:ajax event="rowUnselect" update=":form:delete-products-button" />
+				<p:ajax event="rowSelectCheckbox"
+					update=":form:delete-products-button" />
+				<p:ajax event="rowUnselectCheckbox"
+					update=":form:delete-products-button" />
+				<p:ajax event="toggleSelect" update=":form:delete-products-button" />
+
+				<p:column selectionMode="multiple" exportable="false"></p:column>
+				<p:column headerText="Nombre" sortBy="#{mascota.nombre}"
+					filterBy="#{mascota.nombre}" filterStyle="display: none;">
+					<h:outputText value="#{mascota.nombre}" />
+				</p:column>
+				<p:column headerText="Foto" exportable="false">
+					<img id="imagenMascota" src="../../imagenes/#{mascota.foto}"
+						alt="#{mascota.nombre}" style="max-width: 100%; height: auto;" />
+				</p:column>
+				<p:column headerText="Descripcion" sortBy="#{mascota.descripcion}">
+					<h:outputText value="#{mascota.descripcion}"
+						style="font-weight: 700">
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Edad" sortBy="#{mascota.edad}">
+					<h:outputText value="#{mascota.edad}" style="font-weight: 700">
+
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Raza" sortBy="#{mascota.raza}">
+					<h:outputText value="#{mascota.raza}" />
+				</p:column>
+				<p:column headerText="Especie" sortBy="#{mascota.especie}"
+					filterBy="#{mascota.especie}" filterStyle="display: none;">
+					<h:outputText value="#{mascota.especie}" />
+				</p:column>
+				<p:column headerText="Estado" sortBy="#{mascota.estado}">
+					<h:outputText value="#{mascota.estado}" />
+				</p:column>
+				<p:column exportable="false">
+					<p:commandButton icon="pi pi-pencil"
+						update=":dialogs:manage-product-content"
+						oncomplete="PF('manageProductDialog').show()"
+						styleClass="edit-button rounded-button ui-button-success"
+						process="@this">
+						<f:setPropertyActionListener value="#{mascota}"
+							target="#{administradorControlador1.selectedMascota}" />
+
+					</p:commandButton>
+					<p:commandButton class="ui-button-warning rounded-button"
+						icon="pi pi-trash" process="@this"
+						oncomplete="PF('deleteProductDialog').show()">
+						<f:setPropertyActionListener value="#{mascota}"
+							target="#{administradorControlador1.selectedMascota}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<h:form id="dialogs" enctype="multipart/form-data">
+			<p:dialog header="Detalles de la mascota" showEffect="fade"
+				modal="true" widgetVar="manageProductDialog" responsive="true">
+				<p:outputPanel id="manage-product-content" class="ui-fluid">
+					<p:outputPanel
+						rendered="#{not empty administradorControlador1.selectedMascota}">
+						<p:panelGrid columns="4" columnClasses="label, value">
+							<p:outputLabel value="Nombre:" for="nombre" />
+							<p:inputText id="nombre"
+								value="#{administradorControlador1.selectedMascota.nombre}" />
+
+							<p:outputLabel value="Especie:" for="especie" />
+							<p:selectOneRadio id="especie" layout="responsive" columns="2"
+								value="#{administradorControlador1.selectedMascota.especie}">
+
+								<f:selectItem itemLabel="Perro" itemValue="Perro" />
+								<f:selectItem itemLabel="Gato" itemValue="Gato" />
+							</p:selectOneRadio>
+							<p:outputLabel value="Raza:" for="raza" />
+							<p:inputText id="raza"
+								value="#{administradorControlador1.selectedMascota.raza}" />
+
+							<p:outputLabel value="Edad:" for="edad" />
+							<p:spinner id="edad"
+								value="#{administradorControlador1.selectedMascota.edad}" min="0" max="20" />
+
+							<p:outputLabel value="Descripción:" for="descripcion" />
+							<p:inputTextarea id="descripcion"
+								value="#{administradorControlador1.selectedMascota.descripcion}" />
+
+							
+							<p:outputLabel value="Estado:" for="estado" />
+								<p:selectOneMenu id="estado" value="#{administradorControlador1.selectedMascota.estado}" dir="rtl">
+									<f:selectItem itemLabel="Selecciona una opcion" itemValue="" />
+									<f:selectItem itemLabel="disponible" itemValue="disponible" />
+									<f:selectItem itemLabel="en espera" itemValue="en espera" />
+								</p:selectOneMenu>
+							
+							
+							<p:outputLabel value="Descripción de Salud:"
+								for="descripcionSalud" />
+							<p:inputTextarea id="descripcionSalud"
+								value="#{administradorControlador1.selectedMascota.descripcionSalud}" />
+
+
+							<p:outputLabel value="Foto:" for="file" />
+							<p:fileUpload id="file" value="#{administradorControlador1.file}"
+								mode="simple" skinSimple="true" accept=".png,.jpg" />
+						</p:panelGrid>
+					</p:outputPanel>
+
+				</p:outputPanel>
+
+				<f:facet name="footer">
+					<p:commandButton value="Guardar" icon="pi pi-check"
+						actionListener="#{administradorControlador1.guardarMascota}"
+						update="manage-product-content"
+						process="manage-product-content @this" />
+					<p:commandButton value="Cancel" icon="pi pi-times"
+						onclick="PF('manageProductDialog').hide()"
+						class="ui-button-secondary" type="button" />
+				</f:facet>
+			</p:dialog>
+
+			<p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade"
+				width="300" message="Desea eliminar la mascota?" header="Confirm"
+				severity="warn">
+				<p:commandButton value="Yes" icon="pi pi-check"
+					actionListener="#{administradorControlador1.eliminarMascota}"
+					process="@this" update=":form:delete-products-button"
+					oncomplete="PF('deleteProductDialog').hide()" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-button-secondary" icon="pi pi-times"
+					onclick="PF('deleteProductDialog').hide()" />
+			</p:confirmDialog>
+
+			<p:confirmDialog global="true" showEffect="fade" width="300">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no ui-button-secondary"
+					icon="pi pi-times" />
+			</p:confirmDialog>
+		</h:form>
+	</div>
+</h:body>
+
+</html>

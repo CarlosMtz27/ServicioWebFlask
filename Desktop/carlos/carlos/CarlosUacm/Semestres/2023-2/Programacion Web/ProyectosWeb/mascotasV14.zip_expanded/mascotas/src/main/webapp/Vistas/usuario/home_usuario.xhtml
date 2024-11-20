@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title>Inicio</title>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+	<style>
+img {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 5px;
+	width: 150px;
+}
+</style>
+</h:head>
+<h:body>
+	<nav>
+		<div class="card">
+			<h:form>
+				<p:growl id="messages" />
+				<p:menubar>
+					<p:submenu label="#{controladorLogin.usuario.nombre}"
+						icon="pi pi-fw pi-user">
+						<p:menuitem value="Cerrar sesion" icon="pi pi-fw pi-power-off"
+							action="#{controladorLogin.logout}" />
+						<p:menuitem value="Inicio" icon="pi pi-home"
+							action="#{controladorUsuario.homeUsuario}" />
+					</p:submenu>
+
+					<p:submenu label="Solicitudes" icon="pi pi-book">
+						<p:menuitem value="Enviadas" icon="pi pi-send"
+							action="#{controladorUsuario.verSolicitudes(controladorLogin.usuario.id)}" />
+					</p:submenu>
+
+					<p:submenu label="Acerca de" icon="pi pi-info">
+						<p:menuitem action="nosotros.xhtml" value="Nostros"
+							icon="pi pi-users
+"></p:menuitem>
+					</p:submenu>
+
+					<p:divider layout="vertical" />
+
+					<f:facet name="options">
+						<div class="ui-input-icon-left mr-2">
+							<i class="pi pi-fw pi-search" />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('dtProducts').filter()" placeholder="Buscar" />
+						</div>
+						<p:commandButton value="Cerrar sesion" icon="pi pi-fw pi-sign-out"
+							styleClass="ui-button-info" action="#{controladorLogin.logout}" />
+					</f:facet>
+				</p:menubar>
+			</h:form>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="row">
+			<p:growl id="messages" />
+			<ui:repeat value="#{controladorUsuario.mascotas}" var="mascota"
+				id="dt-products" widgetVar="dtProducts"
+				selection="#{administradorControlador1.selectedMascotas}">
+				<div class="col-lg-4 mb-4" style="margin-bottom: 1rem;">
+					<p:card style="width: 25em">
+						<p:panel header="#{mascota.nombre}" filterBy="#{mascota.nombre}"
+							filterStyle="display: none;">
+							<div style="text-align: center;">
+								<img src="../../imagenes/#{mascota.foto}"
+									alt="#{mascota.nombre}" style="max-width: 100%; height: auto;" />
+							</div>
+							<p:growl id="msgs" showDetail="true"
+								skipDetailIfEqualsSummary="true" />
+
+							<div class="card">
+								<h5 class="mt-0">Datos de la mascota</h5>
+								<p:tabView>
+
+									<p:tab title="Descripcion">
+
+										<p class="m-0">#{mascota.descripcion}</p>
+									</p:tab>
+									<p:tab title="Salud">
+
+										<p class="m-0">#{mascota.descripcionSalud}</p>
+									</p:tab>
+
+									<p:tab title="Raza">
+
+										<p class="m-0">#{mascota.raza}</p>
+									</p:tab>
+								</p:tabView>
+							</div>
+							<p>Edad: #{mascota.edad}</p>
+							<p>Estado: #{mascota.estado}</p>
+							<p>Especie: #{mascota.especie}</p>
+							<div style="text-align: center;">
+								<p:commandButton value="Adoptar" class="btn btn-secondary"
+									oncomplete="PF('registroDialog').show()" update=":registroForm"
+									styleClass="ui-button-success" style="margin-right: .5rem">
+									<f:setPropertyActionListener
+										target="#{adopcionesControler.idMascota}"
+										value="#{mascota.idMascota}" />
+								</p:commandButton>
+
+							</div>
+						</p:panel>
+					</p:card>
+				</div>
+
+			</ui:repeat>
+		</div>
+	</div>
+	<p:dialog header="Registro" widgetVar="registroDialog"
+		resizable="false" modal="true" showEffect="fade" hideEffect="fade">
+		<h:form id="registroForm">
+			<p:panelGrid columns="4" columnClasses="label, value">
+				<p:outputLabel for="ingresoMensual" value="Ingreso Mensual:" />
+				<p:inputText id="ingresoMensual"
+					value="#{adopcionesControler.fse.ingresoMensual}" />
+
+				<p:outputLabel for="tipoVivienda" value="Tipo de Vivienda:" />
+				<p:selectOneMenu id="tipoVivienda"
+					value="#{adopcionesControler.fse.tipoVivienda}" editable="true">
+					<f:selectItem itemLabel="Casa pequeña" itemValue="Casa pequeña" />
+					<f:selectItem itemLabel="Casa grande" itemValue="Casa grande" />
+					<f:selectItem itemLabel="Apartamento" itemValue="Apartamento" />
+				</p:selectOneMenu>
+
+
+
+
+				<p:outputLabel for="horasDisponibles" value="Horas Disponibles:" />
+				<p:spinner id="horasDisponibles"
+					value="#{adopcionesControler.fse.horasDisponibles}" min="0"
+					max="20" />
+
+				<p:outputLabel for="experiencia" value="Experiencia:" />
+				<p:selectOneMenu id="experiencia"
+					value="#{adopcionesControler.fse.experiencia}">
+					<f:selectItem itemLabel="Sin experiencia"
+						itemValue="Sin experiencia" />
+					<f:selectItem itemLabel="Experiencia minima"
+						itemValue="Experiencia minima" />
+					<f:selectItem itemLabel="Experiencia media"
+						itemValue="Experiencia media" />
+					<f:selectItem itemLabel="Experiencia maxima"
+						itemValue="Experiencia maxima" />
+				</p:selectOneMenu>
+
+				<p:outputLabel for="otrosAnimalesEnHogar"
+					value="Otros Animales en el Hogar:" />
+
+				<p:spinner id="otrosAnimalesEnHogar"
+					value="#{adopcionesControler.fse.otrosAnimalesEnHogar}" min="0"
+					max="20" />
+
+				<p:outputLabel for="informacionAdicional"
+					value="Información Adicional:" />
+				<p:inputTextarea id="informacionAdicional"
+					value="#{adopcionesControler.fse.informacionAdicional}" />
+				<p:commandButton value="Agregar" class="btn btn-success"
+					oncomplete="PF('registroDialog').hide()"
+					action="#{adopcionesControler.procesoDeAdopcion(adopcionesControler.fse,controladorLogin.usuario.id)}" />
+				<p:commandButton value="Cancel" icon="pi pi-times"
+					onclick="PF('registroDialog').hide()"
+					class="ui-button-secondary" />
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

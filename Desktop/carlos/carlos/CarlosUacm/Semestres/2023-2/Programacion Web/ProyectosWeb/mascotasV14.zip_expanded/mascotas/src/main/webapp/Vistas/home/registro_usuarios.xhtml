@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</h:head>
+<h:body>
+
+<nav>
+		 <div class="card">
+			<h:form>
+				<p:growl id="messages" />
+				<p:menubar>
+					<p:menuitem value="Mascotas CDMX" icon="pi pi-home"
+						actionListener="#{controladorLogin.inicio}" />
+
+
+					<p:menuitem value="Registro" icon="pi pi-user-plus" action="#{registroUsuario.registro}" />
+
+					<p:submenu label="Acerca de" icon="pi pi-info">
+						<p:menuitem value="Nostros" icon="pi pi-users" action="nosotros.xhtml"></p:menuitem>
+						<p:menuitem value="Historia" icon="pi pi-link"></p:menuitem>
+					</p:submenu>
+
+					<p:divider layout="vertical" />
+
+					<f:facet name="options">
+						<div class="ui-input-icon-left mr-2">
+							<i class="pi pi-fw pi-search" />
+							<p:inputText id="globalFilter" placeholder="Buscar" />
+						</div>
+						<p:commandButton value="Ir Atras" icon="pi pi-arrow-circle-left"
+							styleClass="ui-button-danger"
+							actionListener="#{controladorLogin.inicio}" />
+					</f:facet>
+				</p:menubar>
+			</h:form>
+		</div>
+	</nav>
+	<div class="container mt-5">
+		<h2>Registro de Usuario</h2>
+		<hr />
+		<h:form>
+			<div class="form-group">
+				<label for="nombre">Nombre:</label>
+				<p:inputText value="#{registroUsuario.usuario.nombre}"
+					class="form-control" required="true" />
+			</div>
+			<div class="form-group">
+				<label for="apellidoMaterno">Apellido Paterno:</label>
+				<p:inputText value="#{registroUsuario.usuario.apellidoPaterno}"
+					class="form-control" required="true" />
+			</div>
+			<div class="form-group">
+				<label for="apellidoMaterno">Apellido Materno:</label>
+				<p:inputText id="apellidoMaterno"
+					value="#{registroUsuario.usuario.apellidoMaterno}"
+					class="form-control" required="true" />
+			</div>
+			<div class="form-group">
+				<label for="correo">Correo:</label>
+				<p:inputText id="correo" value="#{registroUsuario.usuario.correo}"
+					class="form-control" required="true" />
+			</div>
+			<div class="form-group">
+				<label for="password">Contraseña:</label>
+				<h:inputSecret id="password"
+					value="#{registroUsuario.usuario.password}" class="form-control"
+					required="true" />
+			</div>
+			<div class="form-group">
+				<label for="direccion">Dirección:</label>
+				<p:inputText id="direccion"
+					value="#{registroUsuario.usuario.direccion}" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label for="telefono">Teléfono:</label>
+				<p:inputText id="telefono"
+					value="#{registroUsuario.usuario.telefono}" class="form-control" />
+			</div>
+			<h:inputHidden id="tipoHidden" value="#{registroUsuario.usuario.rol}" />
+			<p:commandButton value="Agregar"
+				actionListener="#{registroUsuario.agregar}" class="btn btn-success" />
+
+		</h:form>
+	</div>
+	
+</h:body>
+
+<h:form>
+<p:commandButton value="Atras"
+				styleClass="rounded-button ui-button-info" action="index.xhtml" />
+				</h:form>
+
+</html>
